@@ -1,0 +1,38 @@
+{
+    "name": "reallyli/laravel-ab-test",
+    "description": "A server-side A/B testing tool for Laravel.",
+    "keywords": ["laravel","optimizely","ab","split","testing"],
+    "authors": [
+        {
+            "name": "reallyli",
+            "email": "zlisreallyli@outlook.com"
+        }
+    ],
+    "license" : "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.*",
+        "symfony/console": "*",
+        "league/csv": "~6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "2.2.*",
+        "mockery/mockery": "*",
+        "satooshi/php-coveralls": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reallyli\\AB\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Reallyli\\AB\\TesterServiceProvider"
+            ],
+            "aliases": {
+                "AB": "Reallyli\\AB\\Facades\\AB"
+            }
+        }
+    }
+}
