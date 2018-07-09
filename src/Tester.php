@@ -5,7 +5,6 @@ namespace Reallyli\AB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
 use Reallyli\AB\Session\SessionInterface;
 use Reallyli\AB\Models\Experiment;
 use Reallyli\AB\Models\Goal;

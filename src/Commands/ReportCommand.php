@@ -4,7 +4,6 @@ namespace Reallyli\AB\Commands;
 
 use Reallyli\AB\Models\Experiment;
 use Reallyli\AB\Models\Goal;
-
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Helper\Table;
 

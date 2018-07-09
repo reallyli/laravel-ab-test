@@ -26,5 +26,4 @@ class Goal extends Eloquent
 
         return $query;
     }
-
 }
