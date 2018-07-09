@@ -19,7 +19,7 @@ class Experiment extends Eloquent
 
     public function goals()
     {
-        return $this->hasMany('Jenssegers\AB\Models\Goal', 'experiment', 'name');
+        return $this->hasMany('Reallyli\AB\Models\Goal', 'experiment', 'name');
     }
 
     public function scopeActive($query)
