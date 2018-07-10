@@ -46,15 +46,14 @@ class ExportCommand extends Command
     public function handle()
     {
         $experiments = Experiment::active()->get();
-        $goals = array_unique(Goal::active()->orderBy('name')->lists('name'));
+        $goals = array_unique(Goal::active()->orderBy('name')->pluck('name')->toArray());
 
         $columns = array_merge(['Experiment', 'Visitors', 'Engagement'], array_map('ucfirst', $goals));
 
         $writer = new Writer(new SplTempFileObject);
         $writer->insertOne($columns);
 
-        foreach ($experiments as $experiment)
-        {
+        foreach ($experiments as $experiment) {
             $engagement = $experiment->visitors ? ($experiment->engagement / $experiment->visitors * 100) : 0;
 
             $row = [
@@ -63,10 +62,9 @@ class ExportCommand extends Command
                 number_format($engagement, 2) . " % (" . $experiment->engagement .")",
             ];
 
-            $results = $experiment->goals()->lists('count', 'name');
+            $results = $experiment->goals()->pluck('count', 'name');
 
-            foreach ($goals as $column)
-            {
+            foreach ($goals as $column) {
                 $count = array_get($results, $column, 0);
                 $percentage = $experiment->visitors ? ($count / $experiment->visitors * 100) : 0;
 
@@ -78,13 +76,11 @@ class ExportCommand extends Command
 
         $output = (string) $writer;
 
-        if ($file = $this->argument('file'))
-        {
+        if ($file = $this->argument('file')) {
             $this->info("Creating $file");
 
             File::put($file, $output);
-        }
-        else
+        } else
         {
             $this->line($output);
         }
