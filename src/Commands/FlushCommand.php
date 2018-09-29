@@ -2,13 +2,12 @@
 
 namespace Reallyli\AB\Commands;
 
-use Config;
 use DB;
+use Config;
 use Illuminate\Console\Command;
 
 class FlushCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -57,7 +56,7 @@ class FlushCommand extends Command
      */
     protected function getArguments()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -67,7 +66,6 @@ class FlushCommand extends Command
      */
     protected function getOptions()
     {
-        return array();
+        return [];
     }
-
 }

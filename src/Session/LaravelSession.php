@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Session;
 
 class LaravelSession implements SessionInterface
 {
-
     /**
      * The session key.
      *

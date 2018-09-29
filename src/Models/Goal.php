@@ -9,7 +9,7 @@ class Goal extends Eloquent
 {
     protected $fillable = ['name', 'experiment', 'count'];
 
-    public function __construct(array $attributes = array())
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
@@ -19,8 +19,7 @@ class Goal extends Eloquent
 
     public function scopeActive($query)
     {
-        if ($experiments = Config::get('ab::experiments'))
-        {
+        if ($experiments = Config::get('ab::experiments')) {
             return $query->whereIn('experiment', Config::get('ab::experiments'));
         }
 

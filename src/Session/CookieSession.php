@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class CookieSession implements SessionInterface
 {
-
     /**
      * The name of the cookie.
      *
@@ -24,7 +23,7 @@ class CookieSession implements SessionInterface
     /**
      * Cookie lifetime.
      *
-     * @var integer
+     * @var int
      */
     protected $minutes = 60;
 

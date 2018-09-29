@@ -2,16 +2,15 @@
 
 namespace Reallyli\AB;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use Reallyli\AB\Session\SessionInterface;
-use Reallyli\AB\Models\Experiment;
 use Reallyli\AB\Models\Goal;
+use Reallyli\AB\Models\Experiment;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+use Reallyli\AB\Session\SessionInterface;
 
 class Tester
 {
-
     /**
      * The Session instance.
      *
@@ -38,9 +37,9 @@ class Tester
     public function track(Request $request)
     {
         // Don't track if there is no active experiment.
-        if ( ! $this->session->get('experiment')) {
+        if (! $this->session->get('experiment')) {
             return;
-        };
+        }
 
         // Since there is an ongoing experiment, increase the pageviews.
         // This will only be incremented once during the whole experiment.
@@ -53,7 +52,7 @@ class Tester
         // Don't track refreshes.
         if ($from == $to) {
             return;
-        };
+        }
 
         // Because the visitor is viewing a new page, trigger engagement.
         // This will only be incremented once during the whole experiment.
@@ -62,7 +61,7 @@ class Tester
         $goals = $this->getGoals();
 
         // Detect goal completion based on the current url.
-        if (in_array($to, $goals) or in_array('/' . $to, $goals)) {
+        if (in_array($to, $goals) or in_array('/'.$to, $goals)) {
             $this->complete($to);
         }
 
@@ -91,9 +90,9 @@ class Tester
             return $experiment == $target;
         } catch (\Exception $e) {
             \Log::error('Experiments on front may be deleted');
+
             return false;
         }
-
     }
 
     /**
@@ -148,7 +147,7 @@ class Tester
         // Only complete once per experiment.
         if ($this->session->get("completed_$name")) {
             return;
-        };
+        }
 
         $goal = Goal::firstOrCreate(['name' => $name, 'experiment' => $this->experiment()]);
         Goal::where('name', $name)->where('experiment', $this->experiment())->update(['count' => ($goal->count + 1)]);
@@ -222,7 +221,7 @@ class Tester
         // Verify that the experiments are in the database.
         $this->checkExperiments();
         if ($this->session->get('experiment') != '') {
-            $experiment =$this->session->get('experiment');
+            $experiment = $this->session->get('experiment');
         } else {
             $experiment = Experiment::active()->orderBy('updated_at', 'asc')->firstOrFail();
             $experiment = $experiment->name;

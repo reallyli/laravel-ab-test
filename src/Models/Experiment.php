@@ -9,7 +9,7 @@ class Experiment extends Eloquent
 {
     protected $fillable = ['name', 'visitors', 'engagement'];
 
-    public function __construct(array $attributes = array())
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
 
@@ -30,5 +30,4 @@ class Experiment extends Eloquent
 
         return $query;
     }
-
 }

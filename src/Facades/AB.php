@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Facade;
 
 class AB extends Facade
 {
-
     /**
      * Get the registered name of the component.
      *
