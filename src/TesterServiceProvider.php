@@ -2,12 +2,12 @@
 
 namespace Reallyli\AB;
 
-use Reallyli\AB\Commands\ExportCommand;
 use Reallyli\AB\Commands\FlushCommand;
-use Reallyli\AB\Commands\InstallCommand;
-use Reallyli\AB\Commands\ReportCommand;
 use Reallyli\AB\Session\CookieSession;
 use Illuminate\Support\ServiceProvider;
+use Reallyli\AB\Commands\ExportCommand;
+use Reallyli\AB\Commands\ReportCommand;
+use Reallyli\AB\Commands\InstallCommand;
 
 class TesterServiceProvider extends ServiceProvider
 {
@@ -27,11 +27,11 @@ class TesterServiceProvider extends ServiceProvider
                 ExportCommand::class,
                 FlushCommand::class,
                 InstallCommand::class,
-                ReportCommand::class
+                ReportCommand::class,
             ]);
         }
     }
-    
+
     /**
      * Register the application events.
      *
@@ -39,7 +39,7 @@ class TesterServiceProvider extends ServiceProvider
      */
     public static function setTrack($request)
     {
-        return (new TesterServiceProvider())->app['ab']->track($request);
+        return (new self())->app['ab']->track($request);
     }
 
     /**

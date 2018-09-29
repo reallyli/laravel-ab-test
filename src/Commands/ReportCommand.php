@@ -2,14 +2,13 @@
 
 namespace Reallyli\AB\Commands;
 
-use Reallyli\AB\Models\Experiment;
 use Reallyli\AB\Models\Goal;
 use Illuminate\Console\Command;
+use Reallyli\AB\Models\Experiment;
 use Symfony\Component\Console\Helper\Table;
 
 class ReportCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -55,7 +54,7 @@ class ReportCommand extends Command
             $row = [
                 $experiment->name,
                 $experiment->visitors,
-                number_format($engagement, 2) . " % (" . $experiment->engagement .")",
+                number_format($engagement, 2).' % ('.$experiment->engagement.')',
             ];
 
             $results = $experiment->goals()->pluck('count', 'name');
@@ -64,7 +63,7 @@ class ReportCommand extends Command
                 $count = array_get($results, $column, 0);
                 $percentage = $experiment->visitors ? ($count / $experiment->visitors * 100) : 0;
 
-                $row[] = number_format($percentage, 2) . " % ($count)";
+                $row[] = number_format($percentage, 2)." % ($count)";
             }
 
             $table->addRow($row);
@@ -80,7 +79,7 @@ class ReportCommand extends Command
      */
     protected function getArguments()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -90,7 +89,6 @@ class ReportCommand extends Command
      */
     protected function getOptions()
     {
-        return array();
+        return [];
     }
-
 }

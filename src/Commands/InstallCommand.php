@@ -2,16 +2,14 @@
 
 namespace Reallyli\AB\Commands;
 
-use Reallyli\AB\Models\Experiment;
-use Reallyli\AB\Models\Goal;
-
 use Config;
 use Schema;
+use Reallyli\AB\Models\Goal;
 use Illuminate\Console\Command;
+use Reallyli\AB\Models\Experiment;
 
 class InstallCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -46,10 +44,8 @@ class InstallCommand extends Command
         $connection = Config::get('ab::connection');
 
         // Create experiments table.
-        if ( ! Schema::connection($connection)->hasTable('experiments'))
-        {
-            Schema::connection($connection)->create('experiments', function($table)
-            {
+        if (! Schema::connection($connection)->hasTable('experiments')) {
+            Schema::connection($connection)->create('experiments', function ($table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->integer('visitors')->unsigned()->default(0);
@@ -59,10 +55,8 @@ class InstallCommand extends Command
         }
 
         // Create goals table.
-        if ( ! Schema::connection($connection)->hasTable('goals'))
-        {
-            Schema::connection($connection)->create('goals', function($table)
-            {
+        if (! Schema::connection($connection)->hasTable('goals')) {
+            Schema::connection($connection)->create('goals', function ($table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->string('experiment');
@@ -75,30 +69,26 @@ class InstallCommand extends Command
 
         $experiments = Config::get('ab')['experiments'];
 
-        if ( ! $experiments or empty($experiments))
-        {
+        if (! $experiments or empty($experiments)) {
             return $this->error('No experiments configured.');
         }
 
         $goals = Config::get('ab')['goals'];
 
-        if ( ! $goals or empty($goals))
-        {
+        if (! $goals or empty($goals)) {
             return $this->error('No goals configured.');
         }
 
         // Populate experiments and goals.
-        foreach ($experiments as $experiment)
-        {
+        foreach ($experiments as $experiment) {
             Experiment::firstOrCreate(['name' => $experiment]);
 
-            foreach ($goals as $goal)
-            {
+            foreach ($goals as $goal) {
                 Goal::firstOrCreate(['name' => $goal, 'experiment' => $experiment]);
             }
         }
 
-        $this->info('Added ' . count($experiments) . ' experiments.');
+        $this->info('Added '.count($experiments).' experiments.');
     }
 
     /**
@@ -108,7 +98,7 @@ class InstallCommand extends Command
      */
     protected function getArguments()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -118,7 +108,6 @@ class InstallCommand extends Command
      */
     protected function getOptions()
     {
-        return array();
+        return [];
     }
-
 }

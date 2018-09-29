@@ -4,7 +4,6 @@ namespace Reallyli\AB\Session;
 
 interface SessionInterface
 {
-
     /**
      * Returns an attribute.
      *

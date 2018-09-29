@@ -2,18 +2,16 @@
 
 namespace Reallyli\AB\Commands;
 
-use Reallyli\AB\Models\Experiment;
-use Reallyli\AB\Models\Goal;
-
-use SplTempFileObject;
 use League\Csv\Writer;
-use Illuminate\Support\Facades\File;
+use SplTempFileObject;
+use Reallyli\AB\Models\Goal;
 use Illuminate\Console\Command;
+use Reallyli\AB\Models\Experiment;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ExportCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -59,7 +57,7 @@ class ExportCommand extends Command
             $row = [
                 $experiment->name,
                 $experiment->visitors,
-                number_format($engagement, 2) . " % (" . $experiment->engagement .")",
+                number_format($engagement, 2).' % ('.$experiment->engagement.')',
             ];
 
             $results = $experiment->goals()->pluck('count', 'name');
@@ -68,7 +66,7 @@ class ExportCommand extends Command
                 $count = array_get($results, $column, 0);
                 $percentage = $experiment->visitors ? ($count / $experiment->visitors * 100) : 0;
 
-                $row[] = number_format($percentage, 2) . " % ($count)";
+                $row[] = number_format($percentage, 2)." % ($count)";
             }
 
             $writer->insertOne($row);
@@ -80,8 +78,7 @@ class ExportCommand extends Command
             $this->info("Creating $file");
 
             File::put($file, $output);
-        } else
-        {
+        } else {
             $this->line($output);
         }
     }
@@ -93,9 +90,9 @@ class ExportCommand extends Command
      */
     protected function getArguments()
     {
-        return array(
-            array('file', InputArgument::OPTIONAL, 'The target CSV file to write the output to.')
-        );
+        return [
+            ['file', InputArgument::OPTIONAL, 'The target CSV file to write the output to.'],
+        ];
     }
 
     /**
@@ -105,7 +102,6 @@ class ExportCommand extends Command
      */
     protected function getOptions()
     {
-        return array();
+        return [];
     }
-
 }
