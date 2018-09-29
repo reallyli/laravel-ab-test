@@ -1,9 +1,7 @@
-# Laravel 5+ A/B Testing
+Laravel 5+ A/B Testing
 
 [![StyleCI](https://github.styleci.io/repos/140167250/shield?branch=master)](https://github.styleci.io/repos/140167250)
-
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/reallyli/laravel-ab-test/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/reallyli/laravel-ab-test/?branch=master)
-
 
 A server-side A/B testing tool for Laravel 5+
 
